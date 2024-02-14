@@ -1,0 +1,8 @@
+# sample image
+/sample_data
+
+# model weight
+*.pt
+
+# etc
+/__pycache__
