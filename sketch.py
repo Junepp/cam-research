@@ -1,34 +1,39 @@
 import cv2
 import numpy as np
 from Detector import Detector
+from Calibrator import Calibrator
 
 det_instance = Detector()
+cal_instance = Calibrator(file_path='camera_intrinsics.dat')
+
 cam = cv2.VideoCapture(0)
 
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
-fps = cam.get(cv2.CAP_PROP_FPS)
-print(f'cam fps: {fps}')
-
 while cam.isOpened():
     status, frame = cam.read()
 
     if status:
-        result = det_instance.img2img(frame)
+        result = det_instance.predict(frame)
 
-        #.1 trial
-        temp_vertical_x = 1200  # sample coords
-        cv2.line(result, (temp_vertical_x, 0), (temp_vertical_x, 720), color=(0, 0, 254), thickness=1)  # draw line
-        normalized_temp_vertical_x = (temp_vertical_x - 636.187782) / 1002.30343  # projection (to normalized plane)
+        hud_frame = result[0].plot()
 
-        ang = np.arctan(normalized_temp_vertical_x/1)  # calculate azimuth
-        ang *= 57.2958  # radian to degree
+        # get coords
+        coords = result[0].boxes.xywh.numpy()
+        if len(coords) >= 1:
+            bcx, bcy, _, _ = map(int, coords[0])
 
-        print(normalized_temp_vertical_x, ang)
-        #.1
+            cv2.line(hud_frame, (bcx, 0), (bcx, 720), color=(0, 0, 255), thickness=1)  # draw line
+            cv2.line(hud_frame, (0, bcy), (1280, bcy), color=(0, 0, 255), thickness=1)  # draw line
 
-        cv2.imshow("test", result)
+            n2x, n2y = cal_instance.undistort(bcx, bcy)
+
+            ang2 = np.arctan(n2x / 1)  # calculate azimuth
+            ang2 *= 57.2958  # radian to degree
+            print(n2x, ang2)
+
+        cv2.imshow("test", hud_frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

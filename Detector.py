@@ -8,13 +8,8 @@ class Detector:
         self.model_input_size = 640
         self.conf_threshold = conf_threshold
 
-    def _predict(self, img: np.array):
+    def predict(self, img: np.array):
         return self.model.predict(img, imgsz=self.model_input_size, conf=self.conf_threshold, verbose=False)
-
-    def img2img(self, img: np.array):
-        retval = self._predict(img)
-
-        return retval[0].plot()
 
 
 if __name__ == '__main__':
@@ -25,9 +20,8 @@ if __name__ == '__main__':
     det_instance = Detector()
 
     retval = det_instance.predict(img)
+    hud_frame = retval[0].plot()
 
-    a = retval[0].plot()
-
-    cv2.imshow('temp', a)
+    cv2.imshow('temp', hud_frame)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
