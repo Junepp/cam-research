@@ -32,12 +32,6 @@ class Calibrator:
         self.skew = skew_coefficient
         self.k1, self.k2, self.p1, self.p2, self.k3 = distortion_coefficients
 
-    def _normalize(self, px: float, py: float):
-        ny = (py - self.cy) / self.fy
-        nx = (px - self.cx) / self.fx - self.skew * ny
-
-        return nx, ny
-
     def _distort_normal(self, x: float, y: float):
         r2 = x**2 + y**2
         radial_d = 1 + (r2 ** 1) * self.k1 + (r2 ** 2) * self.k2 + (r2 ** 3) * self.k3
@@ -46,15 +40,21 @@ class Calibrator:
 
         return x_d, y_d
 
+    def normalize(self, px: float, py: float):
+        ny = (py - self.cy) / self.fy
+        nx = (px - self.cx) / self.fx - self.skew * ny
+
+        return nx, ny
+
     def undistort(self, pdx: float, pdy: float):
         """
-        normalize and undistort
+        normalize and then undistort
         :param pdx: image plane coords x
         :param pdy: image plane coords y
         :return: normalized and undistorted coords set (x, y)
         """
 
-        ndx, ndy = self._normalize(pdx, pdy)
+        ndx, ndy = self.normalize(pdx, pdy)
         nux = ndx
         nuy = ndy
 

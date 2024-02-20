@@ -12,6 +12,7 @@ class Detector:
         return self.model.predict(img, imgsz=self.model_input_size, conf=self.conf_threshold, verbose=False)
 
 
+# DEBUG
 if __name__ == '__main__':
     import cv2
 
