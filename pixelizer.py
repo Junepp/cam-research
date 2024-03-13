@@ -85,6 +85,9 @@ if __name__ == '__main__':
     cam.set(cv2.CAP_PROP_FRAME_WIDTH, W)
     cam.set(cv2.CAP_PROP_FRAME_HEIGHT, H)
 
+    cam.set(cv2.CAP_PROP_AUTOFOCUS, 0)  # temp
+    cam.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0)
+
     while cam.isOpened():
         status, frame = cam.read()
 

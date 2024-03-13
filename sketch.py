@@ -67,6 +67,7 @@ while cam.isOpened():
             print(f'azim: {azim:.1f}, elev: {elev:.1f}')
 
             # generate and send PWM signal
+            azimuthDutyRate = 8.2 + ()
             azimDutyRatio = 7.5 + (azim / 36)
             elevDutyRatio = 7.5 + (elev / 36)
 
