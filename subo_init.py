@@ -17,10 +17,10 @@ pulseAzim = GPIO.PWM(pinAzim, pulseFreq)
 pulseAzim.start(7.5)  # 7.5 dutyRatio = 90 degree
 
 time.sleep(3)
-pulseAzim.ChangeDuty(5)
+pulseAzim.ChangeDutyCycle(5)
 
 time.sleep(3)
-pulseAzim.ChangeDuty(10)
+pulseAzim.ChangeDutyCycle(10)
 
 time.sleep(3)
-pulseAzim.ChangeDuty(7.5)
+pulseAzim.ChangeDutyCycle(7.5)
