@@ -13,10 +13,10 @@ if __name__ == "__main__":
     servo.start(7.5)  # 7.5 dutyRatio = 90 degree
     time.sleep(3)
 
-    servo.ChangeDutyCycle(5)
+    servo.ChangeDutyCycle(3)
     time.sleep(3)
 
-    servo.ChangeDutyCycle(10)
+    servo.ChangeDutyCycle(12)
     time.sleep(3)
 
     servo.ChangeDutyCycle(7.5)
