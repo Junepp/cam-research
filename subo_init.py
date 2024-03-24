@@ -6,7 +6,7 @@ servoElevPin = 11
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(servoAzimPin, GPIO.OUT)
-GPIO.setup(servoElevPinv, GPIO.OUT)
+GPIO.setup(servoElevPin, GPIO.OUT)
 
 
 pulseFreq = 50  # based on MG996R datasheet
