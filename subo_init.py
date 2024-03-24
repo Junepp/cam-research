@@ -1,5 +1,5 @@
 try:
-    import RPI.GPIO as GPIO
+    import RPi.GPIO as GPIO
 
 except RuntimeError:
     print('not exists')
