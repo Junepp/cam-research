@@ -8,7 +8,8 @@ except RuntimeError:
 
 pinAzim = 18
 
-GPIO.setmode(GPIO.BCM)
+# GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pinAzim, GPIO.OUT)
 
 pulseFreq = 50  # based on MG996R datasheet
